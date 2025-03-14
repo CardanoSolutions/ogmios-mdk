@@ -28,7 +28,7 @@
     "build": "tsup lib/index.mjs --format esm,cjs --dts",
     "format": "prettier --write **/*.mjs",
     "doc": "yarn docs",
-    "docs": "jsdoc -c .jsdoc.json -d docs"
+    "docs": "jsdoc --readme ./README.md -c .jsdoc.json -d docs"
   },
   "dependencies": {
     "@cardanosolutions/json-bigint": "^1.0.1",
@@ -38,7 +38,9 @@
     "ava": "^6.2.0",
     "c8": "^10.1.3",
     "jsdoc": "^4.0.4",
+    "minami": "^1.2.3",
     "prettier": "^3.5.3",
+    "taffydb": "^2.7.3",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2"
   },

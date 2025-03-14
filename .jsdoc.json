@@ -2,5 +2,8 @@
   "source": {
     "include": ["lib"],
     "includePattern": "\\.mjs$"
+  },
+  "opts": {
+    "template": "node_modules/minami"
   }
 }
