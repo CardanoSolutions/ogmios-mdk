@@ -7,7 +7,7 @@ test("🎉 fetch tip", async (t) => {
       done(Json.parse(data));
     });
 
-    ws.rpc("findIntersection", { points: [ "origin" ] }, "myRequest");
+    ws.rpc("findIntersection", { points: ["origin"] }, "myRequest");
   });
 
   t.is(typeof response.result.tip.id, "string");
@@ -41,7 +41,7 @@ test("🎉 fetch child block", async (t) => {
           slot: 86268539,
         },
       ],
-      1
+      1,
     );
 
     for await (const { block } of chainFollower()) {
@@ -80,8 +80,6 @@ test("🎉 await next block (only one)", async (t) => {
   t.is(typeof tip.slot, "number");
 });
 
-
-
 test("☠️ invalid query", async (t) => {
   const result = await ogmios(async (ws, done) => {
     try {
@@ -103,63 +101,70 @@ test("☠️ non-existing connection", async (t) => {
 });
 
 test("☠️ invalid newChainFollower start", async (t) => {
-  await t.throwsAsync(async () => {
-    const error = await ogmios(async (ws, done) => {
-      try {
-        await ws.newChainFollower("foo", 42);
-        done();
-      } catch(e) {
-        done(e);
-      }
-    });
+  await t.throwsAsync(
+    async () => {
+      const error = await ogmios(async (ws, done) => {
+        try {
+          await ws.newChainFollower("foo", 42);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
 
-    if (error) {
-      throw error;
-    }
-  }, {
-    any: true,
-    message: /expected an Array/,
-  });
+      if (error) {
+        throw error;
+      }
+    },
+    {
+      any: true,
+      message: /expected an Array/,
+    },
+  );
 });
 
-
 test("☠️ invalid newChainFollower count", async (t) => {
-  await t.throwsAsync(async () => {
-    const error = await ogmios(async (ws, done) => {
-      try {
-        await ws.newChainFollower(["origin"], "bar");
-        done();
-      } catch(e) {
-        done(e);
-      }
-    });
+  await t.throwsAsync(
+    async () => {
+      const error = await ogmios(async (ws, done) => {
+        try {
+          await ws.newChainFollower(["origin"], "bar");
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
 
-    if (error) {
-      throw error;
-    }
-  }, {
-    any: true,
-    message: /expected an Integer/,
-  });
+      if (error) {
+        throw error;
+      }
+    },
+    {
+      any: true,
+      message: /expected an Integer/,
+    },
+  );
 });
 
 test("☠️ invalid newChainFollower intersection", async (t) => {
-  await t.throwsAsync(async () => {
-    const error = await ogmios(async (ws, done) => {
-      try {
-        await ws.newChainFollower([{ id: "0000", slot: 0 }]);
-        done();
-      } catch(e) {
-        done(e);
+  await t.throwsAsync(
+    async () => {
+      const error = await ogmios(async (ws, done) => {
+        try {
+          await ws.newChainFollower([{ id: "0000", slot: 0 }]);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+
+      if (error) {
+        throw error;
       }
-    });
-
-    if (error) {
-      throw error;
-    }
-  }, {
-    any: true,
-    message: /Invalid request/,
-  });
+    },
+    {
+      any: true,
+      message: /Invalid request/,
+    },
+  );
 });
-
