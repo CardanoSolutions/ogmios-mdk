@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
+    tags: [ "*.*.*" ]
   pull_request:
     branches: ["main"]
 
@@ -41,6 +42,14 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: "docs/"
+
+      - name: 📤 Publish client package to npm registry
+        if: ${{ startsWith(github.ref, 'refs/tags') }}
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          access: public
+          strategy: upgrade
+          token: ${{ secrets.NPM_TOKEN }}
 
   publish-docs:
     if: ${{ github.event_name == 'push' }}
